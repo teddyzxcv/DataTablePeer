@@ -1,0 +1,15 @@
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.csprojAssemblyReference.cache
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.Form1.resources
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.Properties.Resources.resources
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.csproj.GenerateResource.cache
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.csproj.CoreCompileInputs.cache
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\bin\Debug\DataTablePeer.exe.config
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\bin\Debug\DataTablePeer.exe
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\bin\Debug\DataTablePeer.pdb
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\bin\Debug\CsvTextFieldParser.dll
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\bin\Debug\CsvTextFieldParser.xml
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.csproj.CopyComplete
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.exe
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.pdb
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.GraphSetForm.resources
+C:\Users\pan26\Documents\GitHub\DataTablePeer\DataTablePeer\obj\Debug\DataTablePeer.ChartForm.resources
