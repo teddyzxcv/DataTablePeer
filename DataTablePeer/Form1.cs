@@ -48,13 +48,13 @@ namespace DataTablePeer
                     if (!firstRowContainsFieldNames)
                         result.Rows.Add(fields);
                 }
-
                 // Get Remaining Rows
                 while (!tfp.EndOfData)
                     result.Rows.Add(tfp.ReadFields());
             }
             return result;
         }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -64,8 +64,8 @@ namespace DataTablePeer
                 string csvsource = File.ReadAllText(ofd.FileName);
                 AllTable = ProcessCsv(csvsource);
                 dataGridView1.DataSource = AllTable;
+                comboBox1.Items.Clear();
                 comboBox1.Items.AddRange(AllCol);
-
             }
             catch
             {
@@ -93,14 +93,22 @@ namespace DataTablePeer
             {
                 //Compute the Average
                 double avg = doublelist.Average();
-
                 //Perform the Sum of (value-avg)^2
                 double sum = doublelist.Sum(d => (d - avg) * (d - avg));
-
                 //Put it all together
                 ret = Math.Sqrt(sum / count);
             }
             return ret;
+        }
+        private double Dispersion(List<double> doublelist)
+        {
+            var query = from r in doublelist
+                        group r by r into g
+                        select new { Count = (double)g.Count() / (double)doublelist.Count, Value = g.Key };
+            var dic = query.ToDictionary(r => r.Value, r => r.Count);
+            double Mx = dic.Sum(e => e.Key * e.Value);
+            double Dx = dic.Sum(e => e.Value * (e.Key - Mx) * (e.Key - Mx));
+            return Dx;
         }
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
@@ -113,18 +121,24 @@ namespace DataTablePeer
                 int midindex = doublelist.Count / 2 + 1;
                 var median = (doublelist.OrderBy(r => r).ToList()[midindex] + doublelist.OrderByDescending(r => r).ToList()[midindex]) / 2;
                 var stdiv = StandardDiv(doublelist);
+                var disper = Dispersion(doublelist);
                 label5.Text = mean.ToString();
                 label6.Text = median.ToString();
                 label7.Text = stdiv.ToString();
+                label8.Text = disper.ToString();
             }
             else
             {
                 label5.Text = "No can do";
                 label6.Text = "No can do";
                 label7.Text = "No can do";
+                label8.Text = "No can do";
             }
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
