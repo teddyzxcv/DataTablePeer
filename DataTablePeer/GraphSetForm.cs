@@ -22,35 +22,52 @@ namespace DataTablePeer
         }
         public static Dictionary<string, int> FrecColumn = new Dictionary<string, int>();
 
+        public static string ChartName1;
+        public static string ChartName2;
+
+
         public static List<KeyValuePair<string, string>> X2YColumn = new List<KeyValuePair<string, string>>();
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (label1.Text == "No can do")
-                MessageBox.Show("No can do, choose 1 or 2 column", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            if (label1.Text == "Just graph")
+            try
             {
-                List<string> SelectedColumn = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(checkedListBox1.CheckedItems[0].ToString())).ToList();
-                var query = from r in SelectedColumn
-                            group r by r into g
-                            select new { Count = g.Count(), Value = g.Key };
-                FrecColumn = query.ToDictionary(r => r.Value, r => r.Count);
-                ChartForm cf = new ChartForm();
-                cf.Show();
-                this.Close();
-            }
-            if (label1.Text == "X --> Y")
-            {
-                List<string> SelectedColumnX = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(checkedListBox1.CheckedItems[0].ToString())).ToList();
-                List<string> SelectedColumnY = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(checkedListBox1.CheckedItems[1].ToString())).ToList();
-                for (int i = 0; i < SelectedColumnX.Count; i++)
+                if (label1.Text == "No can do")
+                    MessageBox.Show("No can do, choose 1 or 2 column", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (label1.Text == "Just graph")
                 {
-                    X2YColumn.Add(new KeyValuePair<string, string>(SelectedColumnX[i], SelectedColumnY[i]));
+                    ChartName1 = checkedListBox1.CheckedItems[0].ToString();
+                    List<string> SelectedColumn = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(checkedListBox1.CheckedItems[0].ToString())).ToList();
+                    var query = from r in SelectedColumn
+                                group r by r into g
+                                select new { Count = g.Count(), Value = g.Key };
+                    FrecColumn = query.ToDictionary(r => r.Value, r => r.Count);
+                    ChartForm cf = new ChartForm();
+                    cf.Show();
+                    this.Close();
                 }
-                ChartForm cf = new ChartForm();
-                cf.Show();
+                if (label1.Text == "X --> Y")
+                {
+                    X2YColumn.Clear();
+                    ChartName1 = checkedListBox1.CheckedItems[0].ToString();
+                    ChartName2 = checkedListBox1.CheckedItems[1].ToString();
+                    List<string> SelectedColumnX = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(checkedListBox1.CheckedItems[0].ToString())).ToList();
+                    List<string> SelectedColumnY = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(checkedListBox1.CheckedItems[1].ToString())).ToList();
+                    for (int i = 0; i < SelectedColumnX.Count; i++)
+                    {
+                        X2YColumn.Add(new KeyValuePair<string, string>(SelectedColumnX[i], SelectedColumnY[i]));
+                    }
+                    ChartForm cf = new ChartForm();
+                    cf.Show();
+                    this.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Something go wrong, plz try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+
             }
         }
 

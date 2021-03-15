@@ -113,26 +113,34 @@ namespace DataTablePeer
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            List<string> SelectedColumn = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(comboBox1.SelectedItem.ToString())).ToList();
-            if (double.TryParse(SelectedColumn[0], out double x))
+            try
             {
-                var doublelist = SelectedColumn.Select(double.Parse).ToList();
-                var mean = doublelist.Average();
-                int midindex = doublelist.Count / 2 + 1;
-                var median = (doublelist.OrderBy(r => r).ToList()[midindex] + doublelist.OrderByDescending(r => r).ToList()[midindex]) / 2;
-                var stdiv = StandardDiv(doublelist);
-                var disper = Dispersion(doublelist);
-                label5.Text = mean.ToString();
-                label6.Text = median.ToString();
-                label7.Text = stdiv.ToString();
-                label8.Text = disper.ToString();
+                List<string> SelectedColumn = Form1.AllTable.AsEnumerable().Select(r => r.Field<string>(comboBox1.SelectedItem.ToString())).ToList();
+                SelectedColumn = SelectedColumn.Select(r => r.Trim('k').Trim('m').Replace('.', ',')).ToList();
+                if (double.TryParse(SelectedColumn[0], out double x))
+                {
+                    var doublelist = SelectedColumn.Select(double.Parse).ToList();
+                    var mean = doublelist.Average();
+                    int midindex = doublelist.Count / 2 + 1;
+                    var median = (doublelist.OrderBy(r => r).ToList()[midindex] + doublelist.OrderByDescending(r => r).ToList()[midindex]) / 2;
+                    var stdiv = StandardDiv(doublelist);
+                    var disper = Dispersion(doublelist);
+                    label5.Text = mean.ToString();
+                    label6.Text = median.ToString();
+                    label7.Text = stdiv.ToString();
+                    label8.Text = disper.ToString();
+                }
+                else
+                {
+                    label5.Text = "No can do";
+                    label6.Text = "No can do";
+                    label7.Text = "No can do";
+                    label8.Text = "No can do";
+                }
             }
-            else
+            catch
             {
-                label5.Text = "No can do";
-                label6.Text = "No can do";
-                label7.Text = "No can do";
-                label8.Text = "No can do";
+                MessageBox.Show("Incorrect column, Plz, try again!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
